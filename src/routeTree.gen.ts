@@ -10,33 +10,80 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as RegisterRouteImport } from './routes/register'
+import { Route as KnowledgeIndexRouteImport } from './routes/knowledge/index'
+import { Route as KnowledgeObjectIdRouteImport } from './routes/knowledge/$objectId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowledgeIndexRoute = KnowledgeIndexRouteImport.update({
+  id: '/knowledge/',
+  path: '/knowledge/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KnowledgeObjectIdRoute = KnowledgeObjectIdRouteImport.update({
+  id: '/knowledge/$objectId',
+  path: '/knowledge/$objectId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/knowledge/$objectId': typeof KnowledgeObjectIdRoute
+  '/knowledge/': typeof KnowledgeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/knowledge/$objectId': typeof KnowledgeObjectIdRoute
+  '/knowledge': typeof KnowledgeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
+  '/knowledge/$objectId': typeof KnowledgeObjectIdRoute
+  '/knowledge/': typeof KnowledgeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    '/' | '/login' | '/register' | '/knowledge/$objectId' | '/knowledge/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/login' | '/register' | '/knowledge/$objectId' | '/knowledge'
+  id:
+    | '__root__'
+    | '/'
+    | '/login'
+    | '/register'
+    | '/knowledge/$objectId'
+    | '/knowledge/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
+  KnowledgeObjectIdRoute: typeof KnowledgeObjectIdRoute
+  KnowledgeIndexRoute: typeof KnowledgeIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +95,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/knowledge/': {
+      id: '/knowledge/'
+      path: '/knowledge'
+      fullPath: '/knowledge/'
+      preLoaderRoute: typeof KnowledgeIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/knowledge/$objectId': {
+      id: '/knowledge/$objectId'
+      path: '/knowledge/$objectId'
+      fullPath: '/knowledge/$objectId'
+      preLoaderRoute: typeof KnowledgeObjectIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
+  KnowledgeObjectIdRoute: KnowledgeObjectIdRoute,
+  KnowledgeIndexRoute: KnowledgeIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
