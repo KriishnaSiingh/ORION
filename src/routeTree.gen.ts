@@ -10,14 +10,28 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ApplicationsIndexRouteImport } from './routes/applications/index'
+import { Route as ApplicationsAppIdRouteImport } from './routes/applications/$appId'
+import { Route as AssistantThreadIdRouteImport } from './routes/assistant/$threadId'
+import { Route as BoardsIndexRouteImport } from './routes/boards/index'
+import { Route as BoardsBoardIdRouteImport } from './routes/boards/$boardId'
+import { Route as IngestionIndexRouteImport } from './routes/ingestion/index'
 import { Route as KnowledgeIndexRouteImport } from './routes/knowledge/index'
 import { Route as KnowledgeObjectIdRouteImport } from './routes/knowledge/$objectId'
+import { Route as OntologyIndexRouteImport } from './routes/ontology/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -30,6 +44,41 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApplicationsIndexRoute = ApplicationsIndexRouteImport.update({
+  id: '/applications/',
+  path: '/applications/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApplicationsAppIdRoute = ApplicationsAppIdRouteImport.update({
+  id: '/applications/$appId',
+  path: '/applications/$appId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssistantThreadIdRoute = AssistantThreadIdRouteImport.update({
+  id: '/assistant/$threadId',
+  path: '/assistant/$threadId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BoardsIndexRoute = BoardsIndexRouteImport.update({
+  id: '/boards/',
+  path: '/boards/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BoardsBoardIdRoute = BoardsBoardIdRouteImport.update({
+  id: '/boards/$boardId',
+  path: '/boards/$boardId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IngestionIndexRoute = IngestionIndexRouteImport.update({
+  id: '/ingestion/',
+  path: '/ingestion/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KnowledgeIndexRoute = KnowledgeIndexRouteImport.update({
   id: '/knowledge/',
   path: '/knowledge/',
@@ -40,50 +89,127 @@ const KnowledgeObjectIdRoute = KnowledgeObjectIdRouteImport.update({
   path: '/knowledge/$objectId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OntologyIndexRoute = OntologyIndexRouteImport.update({
+  id: '/ontology/',
+  path: '/ontology/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/settings': typeof SettingsRoute
+  '/applications/$appId': typeof ApplicationsAppIdRoute
+  '/assistant/$threadId': typeof AssistantThreadIdRoute
+  '/boards/$boardId': typeof BoardsBoardIdRoute
   '/knowledge/$objectId': typeof KnowledgeObjectIdRoute
+  '/applications/': typeof ApplicationsIndexRoute
+  '/boards/': typeof BoardsIndexRoute
+  '/ingestion/': typeof IngestionIndexRoute
   '/knowledge/': typeof KnowledgeIndexRoute
+  '/ontology/': typeof OntologyIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/settings': typeof SettingsRoute
+  '/applications/$appId': typeof ApplicationsAppIdRoute
+  '/assistant/$threadId': typeof AssistantThreadIdRoute
+  '/boards/$boardId': typeof BoardsBoardIdRoute
   '/knowledge/$objectId': typeof KnowledgeObjectIdRoute
+  '/applications': typeof ApplicationsIndexRoute
+  '/boards': typeof BoardsIndexRoute
+  '/ingestion': typeof IngestionIndexRoute
   '/knowledge': typeof KnowledgeIndexRoute
+  '/ontology': typeof OntologyIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/settings': typeof SettingsRoute
+  '/applications/$appId': typeof ApplicationsAppIdRoute
+  '/assistant/$threadId': typeof AssistantThreadIdRoute
+  '/boards/$boardId': typeof BoardsBoardIdRoute
   '/knowledge/$objectId': typeof KnowledgeObjectIdRoute
+  '/applications/': typeof ApplicationsIndexRoute
+  '/boards/': typeof BoardsIndexRoute
+  '/ingestion/': typeof IngestionIndexRoute
   '/knowledge/': typeof KnowledgeIndexRoute
+  '/ontology/': typeof OntologyIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/login' | '/register' | '/knowledge/$objectId' | '/knowledge/'
+    | '/'
+    | '/admin'
+    | '/login'
+    | '/register'
+    | '/settings'
+    | '/applications/$appId'
+    | '/assistant/$threadId'
+    | '/boards/$boardId'
+    | '/knowledge/$objectId'
+    | '/applications/'
+    | '/boards/'
+    | '/ingestion/'
+    | '/knowledge/'
+    | '/ontology/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/register' | '/knowledge/$objectId' | '/knowledge'
+  to:
+    | '/'
+    | '/admin'
+    | '/login'
+    | '/register'
+    | '/settings'
+    | '/applications/$appId'
+    | '/assistant/$threadId'
+    | '/boards/$boardId'
+    | '/knowledge/$objectId'
+    | '/applications'
+    | '/boards'
+    | '/ingestion'
+    | '/knowledge'
+    | '/ontology'
   id:
     | '__root__'
     | '/'
+    | '/admin'
     | '/login'
     | '/register'
+    | '/settings'
+    | '/applications/$appId'
+    | '/assistant/$threadId'
+    | '/boards/$boardId'
     | '/knowledge/$objectId'
+    | '/applications/'
+    | '/boards/'
+    | '/ingestion/'
     | '/knowledge/'
+    | '/ontology/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
+  SettingsRoute: typeof SettingsRoute
+  ApplicationsAppIdRoute: typeof ApplicationsAppIdRoute
+  AssistantThreadIdRoute: typeof AssistantThreadIdRoute
+  BoardsBoardIdRoute: typeof BoardsBoardIdRoute
   KnowledgeObjectIdRoute: typeof KnowledgeObjectIdRoute
+  ApplicationsIndexRoute: typeof ApplicationsIndexRoute
+  BoardsIndexRoute: typeof BoardsIndexRoute
+  IngestionIndexRoute: typeof IngestionIndexRoute
   KnowledgeIndexRoute: typeof KnowledgeIndexRoute
+  OntologyIndexRoute: typeof OntologyIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -93,6 +219,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -109,6 +242,55 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/applications/': {
+      id: '/applications/'
+      path: '/applications'
+      fullPath: '/applications/'
+      preLoaderRoute: typeof ApplicationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/applications/$appId': {
+      id: '/applications/$appId'
+      path: '/applications/$appId'
+      fullPath: '/applications/$appId'
+      preLoaderRoute: typeof ApplicationsAppIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assistant/$threadId': {
+      id: '/assistant/$threadId'
+      path: '/assistant/$threadId'
+      fullPath: '/assistant/$threadId'
+      preLoaderRoute: typeof AssistantThreadIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/boards/': {
+      id: '/boards/'
+      path: '/boards'
+      fullPath: '/boards/'
+      preLoaderRoute: typeof BoardsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/boards/$boardId': {
+      id: '/boards/$boardId'
+      path: '/boards/$boardId'
+      fullPath: '/boards/$boardId'
+      preLoaderRoute: typeof BoardsBoardIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ingestion/': {
+      id: '/ingestion/'
+      path: '/ingestion'
+      fullPath: '/ingestion/'
+      preLoaderRoute: typeof IngestionIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/knowledge/': {
       id: '/knowledge/'
       path: '/knowledge'
@@ -123,15 +305,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KnowledgeObjectIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ontology/': {
+      id: '/ontology/'
+      path: '/ontology'
+      fullPath: '/ontology/'
+      preLoaderRoute: typeof OntologyIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminRoute: AdminRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
+  SettingsRoute: SettingsRoute,
+  ApplicationsAppIdRoute: ApplicationsAppIdRoute,
+  AssistantThreadIdRoute: AssistantThreadIdRoute,
+  BoardsBoardIdRoute: BoardsBoardIdRoute,
   KnowledgeObjectIdRoute: KnowledgeObjectIdRoute,
+  ApplicationsIndexRoute: ApplicationsIndexRoute,
+  BoardsIndexRoute: BoardsIndexRoute,
+  IngestionIndexRoute: IngestionIndexRoute,
   KnowledgeIndexRoute: KnowledgeIndexRoute,
+  OntologyIndexRoute: OntologyIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
