@@ -16,6 +16,7 @@ import { Route as RegisterRouteImport } from './routes/register'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as ApplicationsIndexRouteImport } from './routes/applications/index'
 import { Route as ApplicationsAppIdRouteImport } from './routes/applications/$appId'
+import { Route as AssistantIndexRouteImport } from './routes/assistant/index'
 import { Route as AssistantThreadIdRouteImport } from './routes/assistant/$threadId'
 import { Route as BoardsIndexRouteImport } from './routes/boards/index'
 import { Route as BoardsBoardIdRouteImport } from './routes/boards/$boardId'
@@ -57,6 +58,11 @@ const ApplicationsIndexRoute = ApplicationsIndexRouteImport.update({
 const ApplicationsAppIdRoute = ApplicationsAppIdRouteImport.update({
   id: '/applications/$appId',
   path: '/applications/$appId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssistantIndexRoute = AssistantIndexRouteImport.update({
+  id: '/assistant/',
+  path: '/assistant/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AssistantThreadIdRoute = AssistantThreadIdRouteImport.update({
@@ -106,6 +112,7 @@ export interface FileRoutesByFullPath {
   '/boards/$boardId': typeof BoardsBoardIdRoute
   '/knowledge/$objectId': typeof KnowledgeObjectIdRoute
   '/applications/': typeof ApplicationsIndexRoute
+  '/assistant/': typeof AssistantIndexRoute
   '/boards/': typeof BoardsIndexRoute
   '/ingestion/': typeof IngestionIndexRoute
   '/knowledge/': typeof KnowledgeIndexRoute
@@ -122,6 +129,7 @@ export interface FileRoutesByTo {
   '/boards/$boardId': typeof BoardsBoardIdRoute
   '/knowledge/$objectId': typeof KnowledgeObjectIdRoute
   '/applications': typeof ApplicationsIndexRoute
+  '/assistant': typeof AssistantIndexRoute
   '/boards': typeof BoardsIndexRoute
   '/ingestion': typeof IngestionIndexRoute
   '/knowledge': typeof KnowledgeIndexRoute
@@ -139,6 +147,7 @@ export interface FileRoutesById {
   '/boards/$boardId': typeof BoardsBoardIdRoute
   '/knowledge/$objectId': typeof KnowledgeObjectIdRoute
   '/applications/': typeof ApplicationsIndexRoute
+  '/assistant/': typeof AssistantIndexRoute
   '/boards/': typeof BoardsIndexRoute
   '/ingestion/': typeof IngestionIndexRoute
   '/knowledge/': typeof KnowledgeIndexRoute
@@ -157,6 +166,7 @@ export interface FileRouteTypes {
     | '/boards/$boardId'
     | '/knowledge/$objectId'
     | '/applications/'
+    | '/assistant/'
     | '/boards/'
     | '/ingestion/'
     | '/knowledge/'
@@ -173,6 +183,7 @@ export interface FileRouteTypes {
     | '/boards/$boardId'
     | '/knowledge/$objectId'
     | '/applications'
+    | '/assistant'
     | '/boards'
     | '/ingestion'
     | '/knowledge'
@@ -189,6 +200,7 @@ export interface FileRouteTypes {
     | '/boards/$boardId'
     | '/knowledge/$objectId'
     | '/applications/'
+    | '/assistant/'
     | '/boards/'
     | '/ingestion/'
     | '/knowledge/'
@@ -206,6 +218,7 @@ export interface RootRouteChildren {
   BoardsBoardIdRoute: typeof BoardsBoardIdRoute
   KnowledgeObjectIdRoute: typeof KnowledgeObjectIdRoute
   ApplicationsIndexRoute: typeof ApplicationsIndexRoute
+  AssistantIndexRoute: typeof AssistantIndexRoute
   BoardsIndexRoute: typeof BoardsIndexRoute
   IngestionIndexRoute: typeof IngestionIndexRoute
   KnowledgeIndexRoute: typeof KnowledgeIndexRoute
@@ -261,6 +274,13 @@ declare module '@tanstack/react-router' {
       path: '/applications/$appId'
       fullPath: '/applications/$appId'
       preLoaderRoute: typeof ApplicationsAppIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assistant/': {
+      id: '/assistant/'
+      path: '/assistant'
+      fullPath: '/assistant/'
+      preLoaderRoute: typeof AssistantIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/assistant/$threadId': {
@@ -326,6 +346,7 @@ const rootRouteChildren: RootRouteChildren = {
   BoardsBoardIdRoute: BoardsBoardIdRoute,
   KnowledgeObjectIdRoute: KnowledgeObjectIdRoute,
   ApplicationsIndexRoute: ApplicationsIndexRoute,
+  AssistantIndexRoute: AssistantIndexRoute,
   BoardsIndexRoute: BoardsIndexRoute,
   IngestionIndexRoute: IngestionIndexRoute,
   KnowledgeIndexRoute: KnowledgeIndexRoute,
