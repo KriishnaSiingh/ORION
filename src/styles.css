@@ -169,13 +169,46 @@
   }
 }
 
-@utility status-success { --status: color-mix(in oklab, var(--success) 12%, transparent); --status-foreground: var(--success); --status-border: color-mix(in oklab, var(--success) 28%, transparent); }
-@utility status-warning { --status: color-mix(in oklab, var(--warning) 12%, transparent); --status-foreground: var(--warning); --status-border: color-mix(in oklab, var(--warning) 28%, transparent); }
-@utility status-info { --status: color-mix(in oklab, var(--info) 12%, transparent); --status-foreground: var(--info); --status-border: color-mix(in oklab, var(--info) 28%, transparent); }
-@utility bg-auth-grid { background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 42px 42px; mask-image: linear-gradient(to bottom right, black, transparent 75%); }
+@utility status-success {
+  --status: color-mix(in oklab, var(--success) 12%, transparent);
+  --status-foreground: var(--success);
+  --status-border: color-mix(in oklab, var(--success) 28%, transparent);
+}
+@utility status-warning {
+  --status: color-mix(in oklab, var(--warning) 12%, transparent);
+  --status-foreground: var(--warning);
+  --status-border: color-mix(in oklab, var(--warning) 28%, transparent);
+}
+@utility status-info {
+  --status: color-mix(in oklab, var(--info) 12%, transparent);
+  --status-foreground: var(--info);
+  --status-border: color-mix(in oklab, var(--info) 28%, transparent);
+}
+@utility bg-auth-grid {
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom right, black, transparent 75%);
+}
 
-.react-flow__controls button { background: var(--card); color: var(--foreground); border-color: var(--border); }
-.react-flow__minimap { background: var(--card); border: 1px solid var(--border); }
-.react-flow__edge-text { fill: var(--muted-foreground); font-size: 9px; }
-.react-flow__edge-textbg { fill: var(--graph); }
-* { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+.react-flow__controls button {
+  background: var(--card);
+  color: var(--foreground);
+  border-color: var(--border);
+}
+.react-flow__minimap {
+  background: var(--card);
+  border: 1px solid var(--border);
+}
+.react-flow__edge-text {
+  fill: var(--muted-foreground);
+  font-size: 9px;
+}
+.react-flow__edge-textbg {
+  fill: var(--graph);
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}

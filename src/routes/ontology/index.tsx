@@ -1,1 +1,23 @@
-import{createFileRoute}from"@tanstack/react-router";import{OntologyPage}from"@/components/orion/workspace-pages";export const Route=createFileRoute("/ontology/")({head:()=>({meta:[{title:"Ontology Manager — Orion Intelligence"},{name:"description",content:"Manage object, property, and relationship definitions."},{property:"og:title",content:"Ontology Manager — Orion Intelligence"},{property:"og:description",content:"Manage object, property, and relationship definitions."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:OntologyPage});
+import { createFileRoute } from "@tanstack/react-router";
+import { RequireAuth } from "@/lib/require-auth";
+import { OntologyPage } from "@/components/orion/workspace-pages";
+export const Route = createFileRoute("/ontology/")({
+  head: () => ({
+    meta: [
+      { title: "Ontology Manager — Orion Intelligence" },
+      { name: "description", content: "Manage object, property, and relationship definitions." },
+      { property: "og:title", content: "Ontology Manager — Orion Intelligence" },
+      {
+        property: "og:description",
+        content: "Manage object, property, and relationship definitions.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: () => (
+    <RequireAuth>
+      <OntologyPage />
+    </RequireAuth>
+  ),
+});

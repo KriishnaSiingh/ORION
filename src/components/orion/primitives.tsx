@@ -5,9 +5,145 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import type { Status } from "@/lib/orion-data";
-export function PageHeader({eyebrow="Workspace",title,description,actions}:{eyebrow?:string;title:string;description:string;actions?:ReactNode}){return <div className="flex flex-col gap-4 border-b border-border/70 pb-6 lg:flex-row lg:items-end lg:justify-between"><div><p className="mb-2 text-[11px] font-semibold uppercase tracking-[.14em] text-primary">{eyebrow}</p><h1 className="font-display text-2xl font-semibold text-foreground">{title}</h1><p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">{description}</p></div>{actions&&<div className="flex flex-wrap items-center gap-2">{actions}</div>}</div>}
-export function StatusBadge({status}:{status:string}){const tone=status==="Operational"||status==="Active"?"success":status==="Warning"?"warning":status==="Review"?"info":"neutral";return <Badge variant="outline" className={cn("gap-1.5 border-status-border bg-status text-status-foreground",tone==="success"&&"status-success",tone==="warning"&&"status-warning",tone==="info"&&"status-info")}><span className="size-1.5 rounded-full bg-current"/>{status}</Badge>}
-export function MetricCard({label,value,change,icon:Icon,trend="up"}:{label:string;value:string;change:string;icon:LucideIcon;trend?:"up"|"down"}){return <div className="group border-r border-b border-border bg-card p-5 transition-colors hover:bg-accent/30 last:border-r-0"><div className="flex items-start justify-between"><div className="flex size-8 items-center justify-center rounded-md border border-border bg-background"><Icon className="size-4 text-muted-foreground"/></div><Button size="icon-sm" variant="ghost" aria-label={`More ${label} options`}><MoreHorizontal/></Button></div><div className="mt-7"><p className="text-xs text-muted-foreground">{label}</p><div className="mt-1 flex items-end justify-between"><span className="font-display text-3xl font-semibold tabular-nums">{value}</span><span className={cn("flex items-center text-xs",trend==="up"?"text-success":"text-warning")}>{trend==="up"?<ArrowUpRight className="mr-1 size-3"/>:<ArrowDownRight className="mr-1 size-3"/>}{change}</span></div></div></div>}
-export function Section({title,description,action,children,className}:{title:string;description?:string;action?:ReactNode;children:ReactNode;className?:string}){return <section className={cn("border border-border bg-card",className)}><div className="flex items-center justify-between border-b border-border px-5 py-4"><div><h2 className="text-sm font-semibold">{title}</h2>{description&&<p className="mt-1 text-xs text-muted-foreground">{description}</p>}</div>{action}</div>{children}</section>}
-export function EmptyState({icon:Icon,title,description,action}:{icon:LucideIcon;title:string;description:string;action?:ReactNode}){return <div className="flex min-h-64 flex-col items-center justify-center px-6 text-center"><div className="flex size-11 items-center justify-center rounded-md border border-border bg-muted"><Icon className="size-5 text-muted-foreground"/></div><h3 className="mt-4 text-sm font-semibold">{title}</h3><p className="mt-1 max-w-sm text-sm text-muted-foreground">{description}</p>{action&&<div className="mt-4">{action}</div>}</div>}
-export const statusFor=(status:Status)=><StatusBadge status={status}/>;
+export function PageHeader({
+  eyebrow = "Workspace",
+  title,
+  description,
+  actions,
+}: {
+  eyebrow?: string;
+  title: string;
+  description: string;
+  actions?: ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-4 border-b border-border/70 pb-6 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <p className="mb-2 text-[11px] font-semibold uppercase tracking-[.14em] text-primary">
+          {eyebrow}
+        </p>
+        <h1 className="font-display text-2xl font-semibold text-foreground">{title}</h1>
+        <p className="mt-1.5 max-w-2xl text-sm text-muted-foreground">{description}</p>
+      </div>
+      {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
+    </div>
+  );
+}
+export function StatusBadge({ status }: { status: string }) {
+  const tone =
+    status === "Operational" || status === "Active"
+      ? "success"
+      : status === "Warning"
+        ? "warning"
+        : status === "Review"
+          ? "info"
+          : "neutral";
+  return (
+    <Badge
+      variant="outline"
+      className={cn(
+        "gap-1.5 border-status-border bg-status text-status-foreground",
+        tone === "success" && "status-success",
+        tone === "warning" && "status-warning",
+        tone === "info" && "status-info",
+      )}
+    >
+      <span className="size-1.5 rounded-full bg-current" />
+      {status}
+    </Badge>
+  );
+}
+export function MetricCard({
+  label,
+  value,
+  change,
+  icon: Icon,
+  trend = "up",
+}: {
+  label: string;
+  value: string;
+  change: string;
+  icon: LucideIcon;
+  trend?: "up" | "down";
+}) {
+  return (
+    <div className="group border-r border-b border-border bg-card p-5 transition-colors hover:bg-accent/30 last:border-r-0">
+      <div className="flex items-start justify-between">
+        <div className="flex size-8 items-center justify-center rounded-md border border-border bg-background">
+          <Icon className="size-4 text-muted-foreground" />
+        </div>
+        <Button size="icon-sm" variant="ghost" aria-label={`More ${label} options`}>
+          <MoreHorizontal />
+        </Button>
+      </div>
+      <div className="mt-7">
+        <p className="text-xs text-muted-foreground">{label}</p>
+        <div className="mt-1 flex items-end justify-between">
+          <span className="font-display text-3xl font-semibold tabular-nums">{value}</span>
+          <span
+            className={cn(
+              "flex items-center text-xs",
+              trend === "up" ? "text-success" : "text-warning",
+            )}
+          >
+            {trend === "up" ? (
+              <ArrowUpRight className="mr-1 size-3" />
+            ) : (
+              <ArrowDownRight className="mr-1 size-3" />
+            )}
+            {change}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+export function Section({
+  title,
+  description,
+  action,
+  children,
+  className,
+}: {
+  title: string;
+  description?: string;
+  action?: ReactNode;
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <section className={cn("border border-border bg-card", className)}>
+      <div className="flex items-center justify-between border-b border-border px-5 py-4">
+        <div>
+          <h2 className="text-sm font-semibold">{title}</h2>
+          {description && <p className="mt-1 text-xs text-muted-foreground">{description}</p>}
+        </div>
+        {action}
+      </div>
+      {children}
+    </section>
+  );
+}
+export function EmptyState({
+  icon: Icon,
+  title,
+  description,
+  action,
+}: {
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  action?: ReactNode;
+}) {
+  return (
+    <div className="flex min-h-64 flex-col items-center justify-center px-6 text-center">
+      <div className="flex size-11 items-center justify-center rounded-md border border-border bg-muted">
+        <Icon className="size-5 text-muted-foreground" />
+      </div>
+      <h3 className="mt-4 text-sm font-semibold">{title}</h3>
+      <p className="mt-1 max-w-sm text-sm text-muted-foreground">{description}</p>
+      {action && <div className="mt-4">{action}</div>}
+    </div>
+  );
+}
+export const statusFor = (status: Status) => <StatusBadge status={status} />;

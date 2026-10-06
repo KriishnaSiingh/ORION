@@ -1,15 +1,302 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { Bell, Blocks, Bot, Boxes, ChevronDown, CircleUserRound, DatabaseZap, LayoutDashboard, Moon, Network, PanelLeft, Search, Settings, ShieldCheck, Sun, Workflow } from "lucide-react";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
+import {
+  Bell,
+  Blocks,
+  Bot,
+  Boxes,
+  ChevronDown,
+  CircleUserRound,
+  DatabaseZap,
+  LayoutDashboard,
+  LogOut,
+  Moon,
+  Network,
+  Search,
+  Settings,
+  ShieldCheck,
+  Sun,
+  Workflow,
+} from "lucide-react";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
+  useSidebar,
+} from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from "@/components/ui/command";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useOrionStore } from "@/lib/orion-store";
-import { cn } from "@/lib/utils";
-const nav=[{label:"Dashboard",to:"/",icon:LayoutDashboard},{label:"Knowledge Explorer",to:"/knowledge",icon:Network},{label:"Investigation Boards",to:"/boards",icon:Boxes},{label:"Ontology Manager",to:"/ontology",icon:Workflow},{label:"Data Ingestion",to:"/ingestion",icon:DatabaseZap},{label:"Applications",to:"/applications",icon:Blocks},{label:"AI Assistant",to:"/assistant",icon:Bot},{label:"Settings",to:"/settings",icon:Settings}];
-function Brand(){const {state}=useSidebar();return <div className="flex h-14 items-center gap-3 px-3"><div className="relative flex size-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground"><span className="font-display text-sm font-bold">O</span><span className="absolute right-1 top-1 size-1 rounded-full bg-success"/></div>{state==="expanded"&&<div className="min-w-0"><p className="truncate font-display text-sm font-semibold">Orion Intelligence</p><p className="text-[10px] text-muted-foreground">Decision OS</p></div>}</div>}
-function ShellContent({children}:{children:React.ReactNode}){const pathname=useRouterState({select:s=>s.location.pathname});const navigate=useNavigate();const {theme,setTheme,role}=useOrionStore();const [open,setOpen]=useState(false);useEffect(()=>{document.documentElement.classList.toggle("dark",theme==="dark")},[theme]);useEffect(()=>{const onKey=(e:KeyboardEvent)=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();setOpen(v=>!v)}};window.addEventListener("keydown",onKey);return()=>window.removeEventListener("keydown",onKey)},[]);const items=role==="admin"?[...nav,{label:"Admin",to:"/admin",icon:ShieldCheck}]:nav;return <><Sidebar collapsible="icon" className="border-sidebar-border"><SidebarHeader className="border-b border-sidebar-border p-0"><Brand/></SidebarHeader><SidebarContent><SidebarGroup><SidebarGroupContent><SidebarMenu className="gap-1">{items.map(item=><SidebarMenuItem key={item.to}><SidebarMenuButton asChild isActive={item.to==="/"?pathname==="/":pathname.startsWith(item.to)} tooltip={item.label}><Link to={item.to} className="h-9"><item.icon/><span>{item.label}</span></Link></SidebarMenuButton></SidebarMenuItem>)}</SidebarMenu></SidebarGroupContent></SidebarGroup></SidebarContent><SidebarFooter className="border-t border-sidebar-border p-2"><div className="flex items-center gap-2 overflow-hidden rounded-md p-1.5"><Avatar className="size-7"><AvatarFallback className="bg-primary/15 text-[10px] text-primary">MC</AvatarFallback></Avatar><div className="min-w-0 group-data-[collapsible=icon]:hidden"><p className="truncate text-xs font-medium">Maya Chen</p><p className="truncate text-[10px] text-muted-foreground">Workspace admin</p></div></div></SidebarFooter></Sidebar><main className="min-w-0 flex-1 bg-background"><header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur"><SidebarTrigger/><div className="h-4 w-px bg-border"/><Button variant="outline" className="h-8 w-full max-w-md justify-start text-muted-foreground" onClick={()=>setOpen(true)}><Search className="size-3.5"/><span className="truncate">Search objects, boards, actions…</span><kbd className="ml-auto hidden rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] sm:inline">⌘K</kbd></Button><div className="ml-auto flex items-center gap-1"><Tooltip><TooltipTrigger asChild><Button size="icon" variant="ghost" onClick={()=>setTheme(theme==="dark"?"light":"dark")} aria-label="Toggle theme">{theme==="dark"?<Sun/>:<Moon/>}</Button></TooltipTrigger><TooltipContent>Switch theme</TooltipContent></Tooltip><Button size="icon" variant="ghost" aria-label="Notifications" className="relative"><Bell/><span className="absolute right-2 top-2 size-1.5 rounded-full bg-primary"/></Button><DropdownMenu><DropdownMenuTrigger asChild><Button variant="ghost" className="ml-1 gap-2 px-2"><Avatar className="size-6"><AvatarFallback className="bg-primary/15 text-[10px] text-primary">MC</AvatarFallback></Avatar><ChevronDown className="size-3 text-muted-foreground"/></Button></DropdownMenuTrigger><DropdownMenuContent align="end" className="w-56"><DropdownMenuLabel>Maya Chen<br/><span className="font-normal text-muted-foreground">maya@cognara.ai</span></DropdownMenuLabel><DropdownMenuSeparator/><DropdownMenuItem asChild><Link to="/settings"><CircleUserRound/>Profile settings</Link></DropdownMenuItem><DropdownMenuItem asChild><Link to="/login">Sign out</Link></DropdownMenuItem></DropdownMenuContent></DropdownMenu></div></header><div className="mx-auto max-w-[1600px] p-5 lg:p-7">{children}</div></main><CommandDialog open={open} onOpenChange={setOpen}><CommandInput placeholder="Search Orion or run a command…"/><CommandList><CommandEmpty>No results found.</CommandEmpty><CommandGroup heading="Navigate">{items.map(i=><CommandItem key={i.to} onSelect={()=>{navigate({to:i.to});setOpen(false)}}><i.icon/>{i.label}</CommandItem>)}</CommandGroup><CommandSeparator/><CommandGroup heading="Actions"><CommandItem onSelect={()=>navigate({to:"/knowledge"})}><Search/>Search knowledge graph</CommandItem><CommandItem onSelect={()=>navigate({to:"/boards"})}><Boxes/>Create investigation board</CommandItem></CommandGroup></CommandList></CommandDialog></>}
-export function AppShell({children}:{children:React.ReactNode}){const pathname=useRouterState({select:s=>s.location.pathname});if(pathname==="/login"||pathname==="/register")return <>{children}</>;return <SidebarProvider><ShellContent>{children}</ShellContent></SidebarProvider>}
+import { useAuth, type UserRole } from "@/lib/auth-store";
+import { toast } from "sonner";
+
+const nav = [
+  { label: "Dashboard", to: "/", icon: LayoutDashboard },
+  { label: "Knowledge Explorer", to: "/knowledge", icon: Network },
+  { label: "Investigation Boards", to: "/boards", icon: Boxes },
+  { label: "Ontology Manager", to: "/ontology", icon: Workflow },
+  { label: "Data Ingestion", to: "/ingestion", icon: DatabaseZap },
+  { label: "Applications", to: "/applications", icon: Blocks },
+  { label: "AI Assistant", to: "/assistant", icon: Bot },
+  { label: "Settings", to: "/settings", icon: Settings },
+];
+
+function Brand() {
+  const { state } = useSidebar();
+  return (
+    <div className="flex h-14 items-center gap-3 px-3">
+      <div className="relative flex size-8 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
+        <span className="font-display text-sm font-bold">O</span>
+        <span className="absolute right-1 top-1 size-1 rounded-full bg-emerald-500" />
+      </div>
+      {state === "expanded" && (
+        <div className="min-w-0">
+          <p className="truncate font-display text-sm font-semibold">Orion Intelligence</p>
+          <p className="text-[10px] text-muted-foreground">Decision OS</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ShellContent({ children }: { children: React.ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const navigate = useNavigate();
+  const { theme, setTheme } = useOrionStore();
+  const { profile, signOut } = useAuth();
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setOpen((v) => !v);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
+  const storeProfile = useOrionStore((s) => s.profile);
+  const displayRole = storeProfile?.role ?? profile?.role ?? ("analyst" as UserRole);
+  const displayName =
+    (storeProfile?.firstName && storeProfile?.lastName
+      ? `${storeProfile.firstName} ${storeProfile.lastName}`
+      : profile?.displayName) ?? "Krishna Singh";
+  const userEmail = storeProfile?.email ?? profile?.email ?? "krishnasingh15kks@gmail.com";
+  const initials =
+    displayName
+      .split(/\s+/)
+      .map((p) => p[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase() || "KS";
+  const roleLabel =
+    displayRole === "admin" ? "Workspace admin" : displayRole === "analyst" ? "Analyst" : "Viewer";
+
+  const items =
+    displayRole === "admin" ? [...nav, { label: "Admin", to: "/admin", icon: ShieldCheck }] : nav;
+
+  const handleSignOut = async () => {
+    const res = await signOut();
+    if (res.ok) {
+      toast.success("Signed out");
+      await navigate({ to: "/login", replace: true });
+    } else if (res.error) {
+      toast.error(res.error);
+    }
+  };
+
+  return (
+    <>
+      <Sidebar collapsible="icon" className="border-sidebar-border">
+        <SidebarHeader className="border-b border-sidebar-border p-0">
+          <Brand />
+        </SidebarHeader>
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu className="gap-1">
+                {items.map((item) => (
+                  <SidebarMenuItem key={item.to}>
+                    <SidebarMenuButton
+                      asChild
+                      isActive={item.to === "/" ? pathname === "/" : pathname.startsWith(item.to)}
+                      tooltip={item.label}
+                    >
+                      <Link to={item.to} className="h-9">
+                        <item.icon />
+                        <span>{item.label}</span>
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+        <SidebarFooter className="border-t border-sidebar-border p-2">
+          <div className="flex items-center gap-2 overflow-hidden rounded-md p-1.5">
+            <Avatar className="size-7">
+              <AvatarFallback className="bg-primary/15 text-[10px] font-semibold text-primary">
+                {initials}
+              </AvatarFallback>
+            </Avatar>
+            <div className="min-w-0 group-data-[collapsible=icon]:hidden">
+              <p className="truncate text-xs font-medium">{displayName}</p>
+              <p className="truncate text-[10px] text-muted-foreground">{roleLabel}</p>
+            </div>
+          </div>
+        </SidebarFooter>
+      </Sidebar>
+
+      <main className="min-w-0 flex-1 bg-background">
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-border bg-background/95 px-4 backdrop-blur">
+          <SidebarTrigger />
+          <div className="h-4 w-px bg-border" />
+          <Button
+            variant="outline"
+            className="h-8 w-full max-w-md justify-start text-muted-foreground"
+            onClick={() => setOpen(true)}
+          >
+            <Search className="size-3.5" />
+            <span className="truncate">Search objects, boards, actions…</span>
+            <kbd className="ml-auto hidden rounded border border-border bg-muted px-1.5 py-0.5 text-[10px] sm:inline">
+              ⌘K
+            </kbd>
+          </Button>
+          <div className="ml-auto flex items-center gap-1">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                  aria-label="Toggle theme"
+                >
+                  {theme === "dark" ? <Sun /> : <Moon />}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Switch theme</TooltipContent>
+            </Tooltip>
+            <Button size="icon" variant="ghost" aria-label="Notifications" className="relative">
+              <Bell />
+              <span className="absolute right-2 top-2 size-1.5 rounded-full bg-primary" />
+            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="ml-1 gap-2 px-2">
+                  <Avatar className="size-6">
+                    <AvatarFallback className="bg-primary/15 text-[10px] font-semibold text-primary">
+                      {initials}
+                    </AvatarFallback>
+                  </Avatar>
+                  <ChevronDown className="size-3 text-muted-foreground" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>
+                  {displayName}
+                  <br />
+                  <span className="font-normal text-muted-foreground">{userEmail}</span>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/settings">
+                    <CircleUserRound />
+                    Profile settings
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => void handleSignOut()}
+                  className="text-rose-600 focus:text-rose-600"
+                >
+                  <LogOut />
+                  Sign out
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </header>
+        <div className="mx-auto max-w-[1600px] p-5 lg:p-7">{children}</div>
+      </main>
+
+      <CommandDialog open={open} onOpenChange={setOpen}>
+        <CommandInput placeholder="Search Orion or run a command…" />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Navigate">
+            {items.map((i) => (
+              <CommandItem
+                key={i.to}
+                onSelect={() => {
+                  void navigate({ to: i.to as "/" });
+                  setOpen(false);
+                }}
+              >
+                <i.icon />
+                {i.label}
+              </CommandItem>
+            ))}
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading="Actions">
+            <CommandItem onSelect={() => void navigate({ to: "/knowledge" })}>
+              <Search />
+              Search knowledge graph
+            </CommandItem>
+            <CommandItem onSelect={() => void navigate({ to: "/boards" })}>
+              <Boxes />
+              Create investigation board
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </CommandDialog>
+    </>
+  );
+}
+
+export function AppShell({ children }: { children: React.ReactNode }) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
+  const isPublicRoute = pathname === "/" || pathname === "/login" || pathname === "/register";
+
+  if (isPublicRoute) return <>{children}</>;
+
+  return (
+    <SidebarProvider>
+      <ShellContent>{children}</ShellContent>
+    </SidebarProvider>
+  );
+}

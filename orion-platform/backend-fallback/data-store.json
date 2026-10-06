@@ -1,0 +1,686 @@
+{
+  "users": [
+    {
+      "id": "ba557217-742e-4955-9530-bbcb0ebb4482",
+      "email": "krishnasingh15kks@gmail.com",
+      "name": "Krishna Singh",
+      "role": "admin",
+      "passwordHash": "$2a$10$wT8mQ3p0d2iK.2N8n5q2rOGv2v3qT1Y3kR.6tS0E5F.PZ2Y3jH1.2",
+      "tenantId": "00000000-0000-0000-0000-000000000001",
+      "mfa": false,
+      "summary": true
+    },
+    {
+      "id": "8e5950af-781e-4a21-b248-af091115d858",
+      "tenantId": "00000000-0000-0000-0000-000000000001",
+      "email": "krishnasinghcse15@gmail.com",
+      "name": "Mohit Singh",
+      "passwordHash": "$2a$10$CfnR0YuoUKuqunyX1ns42evW76j6oIthMO7P42gn8RxptOnvDmB2C",
+      "role": "admin",
+      "mfa": false,
+      "summary": true
+    }
+  ],
+  "object_types": [
+    {
+      "id": "ot-1",
+      "name": "Organization",
+      "description": "Companies, subsidiaries, vendors, and partners",
+      "icon": "Building2",
+      "properties": 24,
+      "links": 18,
+      "objects": "48.2K",
+      "updated": "Today",
+      "property_definitions": [
+        {
+          "id": "pd-1",
+          "name": "Legal name",
+          "data_type": "string",
+          "is_required": true
+        },
+        {
+          "id": "pd-2",
+          "name": "External ID",
+          "data_type": "string",
+          "is_required": true
+        },
+        {
+          "id": "pd-3",
+          "name": "Jurisdiction",
+          "data_type": "string",
+          "is_required": false
+        },
+        {
+          "id": "pd-4",
+          "name": "Risk score",
+          "data_type": "number",
+          "is_required": false
+        },
+        {
+          "id": "pd-5",
+          "name": "Last verified",
+          "data_type": "string",
+          "is_required": false
+        }
+      ]
+    },
+    {
+      "id": "ot-2",
+      "name": "Person",
+      "description": "Beneficial owners, officers, employees, contacts",
+      "icon": "UserRound",
+      "properties": 19,
+      "links": 14,
+      "objects": "182K",
+      "updated": "Today",
+      "property_definitions": [
+        {
+          "id": "pd-6",
+          "name": "Full name",
+          "data_type": "string",
+          "is_required": true
+        },
+        {
+          "id": "pd-7",
+          "name": "Nationality",
+          "data_type": "string",
+          "is_required": false
+        },
+        {
+          "id": "pd-8",
+          "name": "PEP status",
+          "data_type": "boolean",
+          "is_required": false
+        }
+      ]
+    },
+    {
+      "id": "ot-3",
+      "name": "Location",
+      "description": "Facilities, hubs, ports, registered addresses",
+      "icon": "Database",
+      "properties": 16,
+      "links": 21,
+      "objects": "12.9K",
+      "updated": "Yesterday",
+      "property_definitions": [
+        {
+          "id": "pd-9",
+          "name": "Facility name",
+          "data_type": "string",
+          "is_required": true
+        },
+        {
+          "id": "pd-10",
+          "name": "Country",
+          "data_type": "string",
+          "is_required": true
+        },
+        {
+          "id": "pd-11",
+          "name": "Capacity TEU",
+          "data_type": "number",
+          "is_required": false
+        }
+      ]
+    },
+    {
+      "id": "ot-4",
+      "name": "Transaction",
+      "description": "Invoices, wire transfers, shipments, customs filings",
+      "icon": "FileText",
+      "properties": 31,
+      "links": 11,
+      "objects": "4.8M",
+      "updated": "Sep 17",
+      "property_definitions": [
+        {
+          "id": "pd-12",
+          "name": "Amount",
+          "data_type": "number",
+          "is_required": true
+        },
+        {
+          "id": "pd-13",
+          "name": "Currency",
+          "data_type": "string",
+          "is_required": true
+        },
+        {
+          "id": "pd-14",
+          "name": "Reference",
+          "data_type": "string",
+          "is_required": false
+        }
+      ]
+    },
+    {
+      "id": "ot-5",
+      "name": "Asset",
+      "description": "Vessels, IP patents, hardware equipment, contracts",
+      "icon": "Shield",
+      "properties": 22,
+      "links": 17,
+      "objects": "86.4K",
+      "updated": "Sep 15",
+      "property_definitions": [
+        {
+          "id": "pd-15",
+          "name": "Asset code",
+          "data_type": "string",
+          "is_required": true
+        },
+        {
+          "id": "pd-16",
+          "name": "Valuation",
+          "data_type": "number",
+          "is_required": false
+        }
+      ]
+    }
+  ],
+  "link_types": [
+    {
+      "id": "lt-1",
+      "name": "OWNS",
+      "description": "Beneficial or direct equity ownership",
+      "cardinality": "many_to_many",
+      "is_directed": true
+    },
+    {
+      "id": "lt-2",
+      "name": "EMPLOYS",
+      "description": "Employment or board affiliation",
+      "cardinality": "one_to_many",
+      "is_directed": true
+    },
+    {
+      "id": "lt-3",
+      "name": "LOCATED_AT",
+      "description": "Physical hub or operating presence",
+      "cardinality": "many_to_one",
+      "is_directed": true
+    },
+    {
+      "id": "lt-4",
+      "name": "SUPPLIES",
+      "description": "Commercial supply relationship",
+      "cardinality": "many_to_many",
+      "is_directed": true
+    },
+    {
+      "id": "lt-5",
+      "name": "REFERENCES",
+      "description": "Evidence or citation link",
+      "cardinality": "many_to_many",
+      "is_directed": true
+    },
+    {
+      "id": "lt-6",
+      "name": "PART_OF",
+      "description": "Hierarchy or corporate group member",
+      "cardinality": "many_to_one",
+      "is_directed": true
+    }
+  ],
+  "knowledge_objects": [
+    {
+      "id": "OBJ-2694",
+      "name": "krishna",
+      "primary_label": "krishna",
+      "type": "Person",
+      "object_type_id": "ot-1",
+      "description": "zbc",
+      "owner": "Analyst",
+      "updated": "Just now",
+      "confidence": 95,
+      "status": "Active",
+      "created_at": "2026-09-22T05:13:30.890Z",
+      "properties": {
+        "Status": "Active"
+      }
+    },
+    {
+      "id": "OBJ-9922",
+      "name": "Titan Maritime",
+      "primary_label": "Titan Maritime",
+      "type": "Organization",
+      "object_type_id": "ot-1",
+      "description": "Organization object created in Orion",
+      "owner": "Analyst",
+      "updated": "Just now",
+      "confidence": 95,
+      "status": "Active",
+      "created_at": "2026-09-22T05:10:09.978Z",
+      "properties": {
+        "Status": "Active"
+      }
+    },
+    {
+      "id": "OBJ-3722",
+      "name": "Apex Maritime Corp",
+      "primary_label": "Apex Maritime Corp",
+      "type": "Organization",
+      "object_type_id": "ot-1",
+      "description": "Global freight carrier",
+      "owner": "Krishna Singh",
+      "updated": "Just now",
+      "confidence": 96,
+      "status": "Active",
+      "created_at": "2026-09-22T05:08:15.589Z",
+      "properties": {
+        "Status": "Active"
+      }
+    },
+    {
+      "id": "OBJ-4921",
+      "name": "Northstar Logistics",
+      "primary_label": "Northstar Logistics",
+      "type": "Organization",
+      "object_type_id": "ot-1",
+      "description": "Strategic distribution partner in EMEA",
+      "owner": "Maya Chen",
+      "updated": "4 min ago",
+      "confidence": 98,
+      "status": "Active",
+      "created_at": "2026-09-22T04:59:35.474Z",
+      "properties": {
+        "Legal name": "Northstar Logistics BV",
+        "External ID": "NL-99281",
+        "Jurisdiction": "Netherlands",
+        "Risk score": 42
+      }
+    },
+    {
+      "id": "OBJ-4918",
+      "name": "Project Sable",
+      "primary_label": "Project Sable",
+      "type": "Investigation",
+      "object_type_id": "ot-4",
+      "description": "Cross-border supply chain anomaly",
+      "owner": "Alex Rivera",
+      "updated": "18 min ago",
+      "confidence": 92,
+      "status": "Review",
+      "created_at": "2026-09-22T04:45:35.481Z",
+      "properties": {
+        "Amount": 14200000,
+        "Currency": "EUR",
+        "Reference": "SABLE-2024-Q3"
+      }
+    },
+    {
+      "id": "OBJ-4907",
+      "name": "Warehouse D-17",
+      "primary_label": "Warehouse D-17",
+      "type": "Location",
+      "object_type_id": "ot-3",
+      "description": "Rotterdam fulfillment and cold storage hub",
+      "owner": "Operations",
+      "updated": "43 min ago",
+      "confidence": 96,
+      "status": "Operational",
+      "created_at": "2026-09-22T04:20:35.481Z",
+      "properties": {
+        "Facility name": "Warehouse D-17 Hub",
+        "Country": "Netherlands",
+        "Capacity TEU": 150000
+      }
+    },
+    {
+      "id": "OBJ-4884",
+      "name": "Elena Vasquez",
+      "primary_label": "Elena Vasquez",
+      "type": "Person",
+      "object_type_id": "ot-2",
+      "description": "Regional procurement lead",
+      "owner": "People Ops",
+      "updated": "2 hr ago",
+      "confidence": 87,
+      "status": "Active",
+      "created_at": "2026-09-22T03:03:35.481Z",
+      "properties": {
+        "Full name": "Elena Vasquez",
+        "Nationality": "Spain",
+        "PEP status": false
+      }
+    },
+    {
+      "id": "OBJ-4862",
+      "name": "Q4 Vendor Ledger",
+      "primary_label": "Q4 Vendor Ledger",
+      "type": "Dataset",
+      "object_type_id": "ot-4",
+      "description": "Consolidated procurement transactions",
+      "owner": "Finance",
+      "updated": "5 hr ago",
+      "confidence": 99,
+      "status": "Operational",
+      "created_at": "2026-09-22T00:03:35.481Z",
+      "properties": {
+        "Reference": "LEDGER-Q4-2024",
+        "Amount": 48200000,
+        "Currency": "USD"
+      }
+    },
+    {
+      "id": "OBJ-4821",
+      "name": "Signal Report 228",
+      "primary_label": "Signal Report 228",
+      "type": "Document",
+      "object_type_id": "ot-4",
+      "description": "Third-party risk assessment",
+      "owner": "Risk",
+      "updated": "Yesterday",
+      "confidence": 78,
+      "status": "Warning",
+      "created_at": "2026-09-21T05:03:35.481Z",
+      "properties": {
+        "Reference": "SIG-REP-228",
+        "Amount": 0,
+        "Currency": "USD"
+      }
+    }
+  ],
+  "knowledge_links": [
+    {
+      "id": "kl-1",
+      "link_type_id": "lt-3",
+      "source_object_id": "OBJ-4921",
+      "target_object_id": "OBJ-4907",
+      "confidence": 98
+    },
+    {
+      "id": "kl-2",
+      "link_type_id": "lt-2",
+      "source_object_id": "OBJ-4884",
+      "target_object_id": "OBJ-4921",
+      "confidence": 94
+    }
+  ],
+  "boards": [
+    {
+      "id": "darpa",
+      "title": "Darpa",
+      "name": "Darpa",
+      "description": "asd",
+      "objects": 12,
+      "collaborators": 3,
+      "updated": "Just now",
+      "status": "Active",
+      "created_at": "2026-09-22T05:14:03.519Z",
+      "comments": []
+    },
+    {
+      "id": "project-titan",
+      "title": "Project Titan",
+      "name": "Project Titan",
+      "description": "Investigation into freight anomalies",
+      "objects": 12,
+      "collaborators": 3,
+      "updated": "Just now",
+      "status": "Active",
+      "created_at": "2026-09-22T05:08:15.612Z",
+      "comments": []
+    },
+    {
+      "id": "operation-northstar",
+      "title": "Operation Northstar",
+      "name": "Operation Northstar",
+      "description": "Supplier concentration and geopolitical exposure",
+      "objects": 38,
+      "collaborators": 7,
+      "updated": "8 minutes ago",
+      "status": "Active",
+      "created_at": "2026-09-22T04:55:35.481Z",
+      "comments": [
+        {
+          "author": "Maya Chen",
+          "text": "Verified primary supplier connection in Rotterdam hub",
+          "time": "10m ago"
+        },
+        {
+          "author": "Alex Rivera",
+          "text": "Added flagged transactions for cross-referencing",
+          "time": "5m ago"
+        }
+      ]
+    },
+    {
+      "id": "board-1",
+      "title": "Sable Transaction Review",
+      "name": "Sable Transaction Review",
+      "description": "Payments, beneficial ownership, and linked entities",
+      "objects": 24,
+      "collaborators": 4,
+      "updated": "42 minutes ago",
+      "status": "Review",
+      "created_at": "2026-09-22T04:21:35.481Z",
+      "comments": []
+    },
+    {
+      "id": "board-2",
+      "title": "EMEA Supply Resilience",
+      "name": "EMEA Supply Resilience",
+      "description": "Alternative routes and critical dependencies",
+      "objects": 61,
+      "collaborators": 12,
+      "updated": "Yesterday",
+      "status": "Active",
+      "created_at": "2026-09-21T05:03:35.481Z",
+      "comments": []
+    }
+  ],
+  "pipelines": [
+    {
+      "id": "pipe-1790054057880",
+      "name": "d",
+      "source": "PostgreSQL",
+      "source_type": "PostgreSQL",
+      "records": "0",
+      "numeric_records": 0,
+      "last": "Never",
+      "status": "Operational",
+      "runs": "Every 15 min",
+      "schedule": "Every 15 min"
+    },
+    {
+      "id": "pipe-1790053695615",
+      "name": "Stripe Ledger",
+      "source": "Snowflake",
+      "source_type": "Snowflake",
+      "records": "11K",
+      "numeric_records": 11016,
+      "last": "Just now",
+      "status": "Operational",
+      "runs": "Hourly",
+      "schedule": "Hourly"
+    },
+    {
+      "id": "pipe-1",
+      "name": "ERP — SAP S/4HANA",
+      "source": "PostgreSQL",
+      "source_type": "PostgreSQL",
+      "records": "18.4M",
+      "numeric_records": 18429102,
+      "last": "6 min ago",
+      "status": "Operational",
+      "runs": "Every 15 min",
+      "schedule": "Every 15 min"
+    },
+    {
+      "id": "pipe-2",
+      "name": "Vendor Risk Feed",
+      "source": "S3 / Parquet",
+      "source_type": "S3",
+      "records": "2.8M",
+      "numeric_records": 2814000,
+      "last": "34 min ago",
+      "status": "Operational",
+      "runs": "Hourly",
+      "schedule": "Hourly"
+    },
+    {
+      "id": "pipe-3",
+      "name": "Identity Resolution",
+      "source": "Kafka",
+      "source_type": "Kafka",
+      "records": "928K",
+      "numeric_records": 928400,
+      "last": "Live",
+      "status": "Active",
+      "runs": "Streaming",
+      "schedule": "Streaming"
+    },
+    {
+      "id": "pipe-4",
+      "name": "Legacy CRM",
+      "source": "Oracle",
+      "source_type": "PostgreSQL",
+      "records": "4.1M",
+      "numeric_records": 4100200,
+      "last": "2 days ago",
+      "status": "Warning",
+      "runs": "Daily",
+      "schedule": "Daily"
+    }
+  ],
+  "applications": [
+    {
+      "id": "app-1790053695648",
+      "name": "Fraud Shield",
+      "description": "Real-time payment risk monitor",
+      "widgets": 10,
+      "owner": "Krishna Singh",
+      "status": "Operational",
+      "created_at": "2026-09-22T05:08:15.648Z"
+    },
+    {
+      "id": "app-0",
+      "name": "Supplier Command Center",
+      "description": "Monitor vendor health, exposure, and delivery risk",
+      "widgets": 12,
+      "owner": "Operations",
+      "status": "Operational",
+      "created_at": "2026-09-21T23:30:15.481Z"
+    },
+    {
+      "id": "app-1",
+      "name": "Transaction Review",
+      "description": "Triage anomalous payments with linked evidence",
+      "widgets": 8,
+      "owner": "Risk",
+      "status": "Draft",
+      "created_at": "2026-09-22T02:16:55.481Z"
+    },
+    {
+      "id": "app-2",
+      "name": "Executive Network View",
+      "description": "Explore leadership and beneficial ownership",
+      "widgets": 6,
+      "owner": "Strategy",
+      "status": "Operational",
+      "created_at": "2026-09-22T03:40:15.481Z"
+    }
+  ],
+  "activities": [
+    {
+      "id": "act-1790054057880",
+      "title": "Pipeline configured: d",
+      "detail": "Source: PostgreSQL · Every 15 min",
+      "time": "Just now",
+      "tone": "info"
+    },
+    {
+      "id": "act-1790054043519",
+      "title": "Investigation board opened: Darpa",
+      "detail": "12 objects · Status: Active",
+      "time": "Just now",
+      "tone": "info"
+    },
+    {
+      "id": "act-1790054010891",
+      "title": "Object created: krishna",
+      "detail": "Person · Confidence 95%",
+      "time": "Just now",
+      "tone": "info"
+    },
+    {
+      "id": "act-1790053809978",
+      "title": "Object created: Titan Maritime",
+      "detail": "Organization · Confidence 95%",
+      "time": "Just now",
+      "tone": "info"
+    },
+    {
+      "id": "act-1790053695648",
+      "title": "Application published: Fraud Shield",
+      "detail": "10 widgets · Owner: Krishna Singh",
+      "time": "Just now",
+      "tone": "success"
+    },
+    {
+      "id": "act-1790053695618",
+      "title": "Pipeline ran: Stripe Ledger",
+      "detail": "Processed +11,016 records successfully",
+      "time": "Just now",
+      "tone": "success"
+    },
+    {
+      "id": "act-1790053695615",
+      "title": "Pipeline configured: Stripe Ledger",
+      "detail": "Source: Snowflake · Hourly",
+      "time": "Just now",
+      "tone": "info"
+    },
+    {
+      "id": "act-1790053695612",
+      "title": "Investigation board opened: Project Titan",
+      "detail": "12 objects · Status: Active",
+      "time": "Just now",
+      "tone": "info"
+    },
+    {
+      "id": "act-1790053695589",
+      "title": "Object created: Apex Maritime Corp",
+      "detail": "Organization · Confidence 96%",
+      "time": "Just now",
+      "tone": "info"
+    },
+    {
+      "id": "act-1",
+      "title": "Pipeline ERP-SAP completed",
+      "detail": "18,429 objects processed without errors",
+      "time": "4m",
+      "tone": "success"
+    },
+    {
+      "id": "act-2",
+      "title": "New link proposed",
+      "detail": "Northstar Logistics → Warehouse D-17",
+      "time": "18m",
+      "tone": "info"
+    },
+    {
+      "id": "act-3",
+      "title": "Ontology version 28 published",
+      "detail": "3 object types and 8 properties changed",
+      "time": "41m",
+      "tone": "info"
+    },
+    {
+      "id": "act-4",
+      "title": "Quality threshold breached",
+      "detail": "Vendor Ledger missing jurisdiction values",
+      "time": "1h",
+      "tone": "warning"
+    },
+    {
+      "id": "act-5",
+      "title": "Investigation shared",
+      "detail": "Project Sable shared with Risk Operations",
+      "time": "2h",
+      "tone": "info"
+    }
+  ]
+}
